@@ -908,6 +908,7 @@ module.exports = class Dashboard extends Plugin {
       saveFileCard: this.saveFileCard,
       openFileEditor: this.openFileEditor,
       canEditFile: this.canEditFile,
+      canEditFileNow: this.opts.canEditFileNow,
       width: this.opts.width,
       height: this.opts.height,
       showLinkToFileUploadResult: this.opts.showLinkToFileUploadResult,
