@@ -3,12 +3,12 @@ const copyToClipboard = require('../../../utils/copyToClipboard')
 
 function EditButton ({
   file,
-  canEditFile,
+  canEditFileNow,
   metaFields,
   i18n,
   onClick
 }) {
-  if (canEditFile(file)) {
+  if (canEditFileNow(file)) {
     return (
       <button
         class="uppy-u-reset uppy-Dashboard-Item-action uppy-Dashboard-Item-action--edit"
