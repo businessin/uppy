@@ -30,9 +30,16 @@ module.exports = class FileItem extends Component {
 
     const isProcessing = file.progress.preprocess || file.progress.postprocess
     const isUploaded = file.progress.uploadComplete && !isProcessing && !file.error
+    const uploadComplete = file.progress.uploadComplete
     const uploadInProgressOrComplete = file.progress.uploadStarted || isProcessing
     const uploadInProgress = (file.progress.uploadStarted && !file.progress.uploadComplete) || isProcessing
     const error = file.error || false
+
+    const canEditFile = this.props.canEditFile || function(file) {
+      return !uploadInProgressOrComplete &&
+        this.props.metaFields &&
+        this.props.metaFields.length > 0
+    }
 
     let showRemoveButton = this.props.individualCancellation
       ? !isUploaded
@@ -99,7 +106,7 @@ module.exports = class FileItem extends Component {
             showLinkToFileUploadResult={this.props.showLinkToFileUploadResult}
             showRemoveButton={showRemoveButton}
 
-            uploadInProgressOrComplete={uploadInProgressOrComplete}
+            canEditFile={canEditFile}
             removeFile={this.props.removeFile}
             toggleFileCard={this.props.toggleFileCard}
 

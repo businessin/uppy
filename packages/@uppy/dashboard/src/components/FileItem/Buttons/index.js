@@ -3,14 +3,12 @@ const copyToClipboard = require('../../../utils/copyToClipboard')
 
 function EditButton ({
   file,
-  uploadInProgressOrComplete,
+  canEditFile,
   metaFields,
   i18n,
   onClick
 }) {
-  if (!uploadInProgressOrComplete &&
-      metaFields &&
-      metaFields.length > 0) {
+  if (canEditFile(file)) {
     return (
       <button
         class="uppy-u-reset uppy-Dashboard-Item-action uppy-Dashboard-Item-action--edit"
@@ -79,7 +77,7 @@ function CopyLinkButton (props) {
 module.exports = function Buttons (props) {
   const {
     file,
-    uploadInProgressOrComplete,
+    canEditFile,
     metaFields,
     showLinkToFileUploadResult,
     showRemoveButton,
@@ -95,7 +93,7 @@ module.exports = function Buttons (props) {
       <EditButton
         i18n={i18n}
         file={file}
-        uploadInProgressOrComplete={uploadInProgressOrComplete}
+        canEditFile={canEditFile}
         metaFields={metaFields}
         onClick={() => toggleFileCard(file.id)}
       />
