@@ -77,7 +77,7 @@ function CopyLinkButton (props) {
 module.exports = function Buttons (props) {
   const {
     file,
-    canEditFile,
+    canEditFileNow,
     metaFields,
     showLinkToFileUploadResult,
     showRemoveButton,
@@ -93,7 +93,7 @@ module.exports = function Buttons (props) {
       <EditButton
         i18n={i18n}
         file={file}
-        canEditFile={canEditFile}
+        canEditFileNow={canEditFileNow}
         metaFields={metaFields}
         onClick={() => toggleFileCard(file.id)}
       />

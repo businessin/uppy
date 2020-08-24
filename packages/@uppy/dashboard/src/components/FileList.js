@@ -61,7 +61,7 @@ module.exports = (props) => {
     removeFile: props.removeFile,
     handleRequestThumbnail: props.handleRequestThumbnail,
     handleCancelThumbnail: props.handleCancelThumbnail,
-    canEditFile: props.canEditFile
+    canEditFileNow: props.canEditFileNow
   }
 
   const rows = chunks(Object.keys(props.files), props.itemsPerRow)
