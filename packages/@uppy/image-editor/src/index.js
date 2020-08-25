@@ -34,7 +34,8 @@ module.exports = class ImageEditor extends Plugin {
     }
 
     const defaultOptions = {
-      quality: 0.8
+      quality: 0.8,
+      onBeforeSave: this.onBeforeSave
     }
 
     this.opts = {
@@ -75,21 +76,30 @@ module.exports = class ImageEditor extends Plugin {
     return false
   }
 
+  async onBeforeSave(currentFile, blob) {
+    return;
+  }
+
   save = (blob) => {
     const { currentImage } = this.getPluginState()
 
-    this.uppy.setFileState(currentImage.id, {
-      data: blob,
-      size: blob.size,
-      preview: null
-    })
+    this.opts.onBeforeSave(currentImage, blob).then(abort => {
+      if(abort) return currentImage;
 
-    const updatedFile = this.uppy.getFile(currentImage.id)
-    this.uppy.emit('thumbnail:request', updatedFile)
-    this.setPluginState({
-      currentImage: updatedFile
-    })
-    this.uppy.emit('file-editor:complete', updatedFile)
+      this.uppy.setFileState(currentImage.id, {
+        data: blob,
+        size: blob.size,
+        preview: null
+      })
+
+      const updatedFile = this.uppy.getFile(currentImage.id)
+      this.uppy.emit('thumbnail:request', updatedFile)
+      this.setPluginState({
+        currentImage: updatedFile
+      })
+
+      return updatedFile
+    }).finally(file => this.uppy.emit('file-editor:complete', file))
   }
 
   selectFile = (file) => {
