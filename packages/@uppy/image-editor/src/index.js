@@ -76,15 +76,15 @@ module.exports = class ImageEditor extends Plugin {
     return false
   }
 
-  async onBeforeSave(currentFile, blob) {
-    return;
+  onBeforeSave (currentFile, blob) {
+    return new Promise((resolve, reject) => resolve())
   }
 
   save = (blob) => {
     const { currentImage } = this.getPluginState()
 
     this.opts.onBeforeSave(currentImage, blob).then(abort => {
-      if(abort) return currentImage;
+      if (abort) return currentImage
 
       this.uppy.setFileState(currentImage.id, {
         data: blob,
